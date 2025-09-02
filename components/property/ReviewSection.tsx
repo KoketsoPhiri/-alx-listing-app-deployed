@@ -4,9 +4,7 @@ import { Review } from '@/interfaces'; // Import Review interface
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-interface ReviewSectionProps {
-  reviews: Review[];
-}
+
 interface ReviewSectionProps {
   propertyId: string;
 }
@@ -23,7 +21,8 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ propertyId }) => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          `/api/properties/${propertyId}/reviews`
+          
+  `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/properties/${propertyId}/reviews`
         );
         setReviews(response.data);
       } catch (err) {

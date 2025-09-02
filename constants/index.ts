@@ -71,6 +71,7 @@ export const PROPERTYLISTINGSAMPLE: PropertyProps[] = [
         avatar: "https://randomuser.me/api/portraits/women/1.jpg",
         rating: 5,
         comment: "Absolutely stunning property! The views were incredible and the villa was spotless. Highly recommend!",
+        reviewerName: "Alice Smith",
         date: "2024-07-15",
       },
       {
@@ -80,6 +81,7 @@ export const PROPERTYLISTINGSAMPLE: PropertyProps[] = [
         avatar: "https://randomuser.me/api/portraits/men/2.jpg",
         rating: 4,
         comment: "Great location and amenities. A few minor issues with the WiFi but overall a fantastic stay.",
+        reviewerName: "Bob Johnson",
         date: "2024-07-10",
       },
       {
@@ -89,6 +91,7 @@ export const PROPERTYLISTINGSAMPLE: PropertyProps[] = [
         avatar: "https://randomuser.me/api/portraits/women/3.jpg",
         rating: 5,
         comment: "The best vacation ever! Every detail was perfect. Can't wait to come back.",
+        reviewerName: "Carol White",
         date: "2024-07-01",
       },
     ],
@@ -133,6 +136,7 @@ export const PROPERTYLISTINGSAMPLE: PropertyProps[] = [
         avatar: "https://randomuser.me/api/portraits/men/4.jpg",
         rating: 5,
         comment: "Perfect quiet escape! Loved the fireplace and the hiking trails were fantastic.",
+        reviewerName: "David Green",
         date: "2024-06-20",
       },
       {
@@ -142,6 +146,7 @@ export const PROPERTYLISTINGSAMPLE: PropertyProps[] = [
         avatar: "https://randomuser.me/api/portraits/women/5.jpg",
         rating: 4,
         comment: "Very cozy, exactly what we needed. A bit isolated, so plan your groceries accordingly!",
+        reviewerName: "Eve Black",
         date: "2024-06-18",
       },
     ],

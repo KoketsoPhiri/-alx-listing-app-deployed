@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface BookingDetails {
   propertyName: string;
@@ -16,10 +17,12 @@ const OrderSummary: React.FC<{ bookingDetails: BookingDetails }> = ({ bookingDet
     <div className="bg-white p-6 shadow-md rounded-lg border">
       <h2 className="text-2xl font-semibold mb-6">Review Order Details</h2>
       <div className="flex items-start mb-6">
-        <img 
-          src={bookingDetails.propertyImage} 
-          alt={bookingDetails.propertyName} 
-          className="w-24 h-24 object-cover rounded-md flex-shrink-0" 
+        <Image
+          src={bookingDetails.propertyImage}
+          alt={bookingDetails.propertyName}
+          width={96}
+          height={96}
+          className="w-24 h-24 object-cover rounded-md flex-shrink-0"
         />
         <div className="ml-4 flex-grow">
           <h3 className="text-lg font-semibold">{bookingDetails.propertyName}</h3>
