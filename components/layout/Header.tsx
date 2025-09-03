@@ -10,7 +10,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center mb-4 md:mb-0">
-          <Image src="/logo.svg" alt="ALX Listing App Logo" width={120} height={32} />
+          <Image src="/logo.svg" alt="ALX Listing App Logo" width={160} height={48} />
         </Link>
 
         {/* Search Bar */}

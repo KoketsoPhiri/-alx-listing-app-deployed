@@ -6,8 +6,8 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   return (
     <div className="border rounded-lg overflow-hidden shadow-lg">
       <Image
-        src={property.imageUrl}
-        alt={property.title}
+  src={property.imageUrl || "/placeholder-card.png"}
+  alt={property.title || "Property"}
         width={500}
         height={300}
         objectFit="cover"

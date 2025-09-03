@@ -12,8 +12,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const response = await fetch(externalApiUrl, {
       headers: {
-        "x-rapidapi-key": `${process.env.EXTERNAL_API_KEY}`,
-        "x-rapidapi-host": "airbnb-data.p.rapidapi.com",
+        "x-rapidapi-key": process.env.EXTERNAL_API_KEY!,
+        "x-rapidapi-host": process.env.EXTERNAL_API_HOST!,
         "Accept": "application/json",
       },
     });
