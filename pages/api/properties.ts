@@ -5,7 +5,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       // Use the new endpoint for airdna properties
       const apiUrl = process.env.EXTERNAL_API_URL!;
-      const urlWithParams = `${apiUrl}?location=santa%20monica&currency=native`;
+      const location = req.query.location || req.body?.location;
+      const currency = req.query.currency || req.body?.currency || "native";
+      if (!location) {
+        return res.status(400).json({ error: "Missing required 'location' parameter." });
+      }
+      const urlWithParams = `${apiUrl}?location=${encodeURIComponent(location as string)}&currency=${encodeURIComponent(currency as string)}`;
       const response = await fetch(urlWithParams, {
         headers: {
           "x-rapidapi-key": process.env.EXTERNAL_API_KEY!,
