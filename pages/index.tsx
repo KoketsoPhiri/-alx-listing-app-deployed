@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        // Fetch properties from the newly created list API endpoint
+        // comment Fetch properties from the newly created list API endpoint
   const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/properties?location=santa monica`);
         // Handle both array and object API responses
         if (Array.isArray(response.data)) {
