@@ -11,13 +11,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(400).json({ error: "Missing required 'location' parameter." });
       }
       const urlWithParams = `${apiUrl}?location=${encodeURIComponent(location as string)}&currency=${encodeURIComponent(currency as string)}`;
+      // Log request for debugging
+      console.log("Requesting:", urlWithParams);
       const response = await fetch(urlWithParams, {
+        method: "GET",
         headers: {
           "x-rapidapi-key": process.env.EXTERNAL_API_KEY!,
-          "x-rapidapi-host": process.env.EXTERNAL_API_HOST!,
+          "x-rapidapi-host": "airdna1.p.rapidapi.com",
           "Accept": "application/json",
         },
       });
+      // Log response status for debugging
+      console.log("Response status:", response.status);
 
       if (!response.ok) {
         const text = await response.text();
