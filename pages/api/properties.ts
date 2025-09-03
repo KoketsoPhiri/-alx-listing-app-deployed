@@ -26,7 +26,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       if (!response.ok) {
         const text = await response.text();
-        return res.status(response.status).json({ error: "Failed to fetch property list", details: text });
+        console.error(`External API error (${response.status}):`, text);
+        return res.status(response.status).json({ error: `External API error (${response.status})`, details: text });
       }
 
       const data = await response.json();
