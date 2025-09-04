@@ -66,19 +66,3 @@ export default async function handler(request: NextApiRequest, response: NextApi
 }
 
 
-/*const data = null;
-
-const xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
-
-xhr.addEventListener('readystatechange', function () {
-	if (this.readyState === this.DONE) {
-		console.log(this.responseText);
-	}
-});
-
-xhr.open('GET', 'https://airbnb19.p.rapidapi.com/api/v2/searchPropertyByPlaceId?placeId=ChIJ7cv00DwsDogRAMDACa2m4K8&adults=1&guestFavorite=false&ib=false&currency=USD');
-xhr.setRequestHeader('x-rapidapi-key', '985611a780mshf2fc7518285fff3p19f4ffjsne12dfef69745');
-xhr.setRequestHeader('x-rapidapi-host', 'airbnb19.p.rapidapi.com');
-
-xhr.send(data);*/
