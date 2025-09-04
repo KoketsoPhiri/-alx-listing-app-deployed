@@ -1,9 +1,7 @@
 // components/property/ReviewSection.tsx
-import React from 'react';
-import { Review } from '@/interfaces'; // Import Review interface
-import axios from "axios";
-import { useState, useEffect } from "react";
-
+import React, { useState, useEffect, useCallback } from 'react';
+import { Review } from '@/interfaces';
+// Assuming you have a Loading component
 
 interface ReviewSectionProps {
   propertyId: string;
@@ -14,30 +12,41 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ propertyId }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Add a check to ensure propertyId is not null or undefined
+  const fetchReviews = useCallback(async () => {
     if (!propertyId) return;
 
-    const fetchReviews = async () => {
-      try {
-        const response = await axios.get(
-          
-  `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/properties/${propertyId}/reviews`
-        );
-        setReviews(response.data);
-      } catch (err) {
-        console.error("Error fetching reviews:", err);
-        setError("Failed to load reviews.");
-      } finally {
-        setLoading(false);
-      }
-    };
+    setLoading(true);
+    setError(null);
 
-    fetchReviews();
+    try {
+      const response = await fetch(`/api/reviews`, {
+        method: "POST",
+        body: JSON.stringify({ propertyId }),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch reviews");
+      }
+
+      const data = await response.json();
+      setReviews(data.reviews);
+    } catch (err) {
+      console.error("Error fetching reviews:", err);
+      setError("Failed to load reviews.");
+    } finally {
+      setLoading(false);
+    }
   }, [propertyId]);
 
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
+
   if (loading) {
-    return <p className="text-gray-500">Loading reviews...</p>;
+    return <p>Loading</p>;
   }
 
   if (error) {

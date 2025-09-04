@@ -1,38 +1,46 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+// pages/api/properties/[id].ts
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    const { id } = req.query;
+// Dummy property data for demonstration
+const properties = [
+  {
+    id: '1',
+    title: 'Luxury Villa',
+    location: 'Cape Town',
+    price: 5000,
+    imageUrl: 'https://a0.muscache.com/im/pictures/f6ab4846-2fca-4aca-9c64-f37697ebc703.jpg',
+  },
+  {
+    id: '2',
+    title: 'Beach House',
+    location: 'Durban',
+    price: 3500,
+    imageUrl: 'https://media.vrbo.com/lodging/74000000/73690000/73684200/73684126/2d4e01dc.jpg?impolicy=resizecrop&rw=1200&ra=fit',
+  },
+  {
+    id: '3',
+    title: 'City Apartment',
+    location: 'Johannesburg',
+    price: 2000,
+    imageUrl: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.airbnb.co.za%2Frooms%2F22513941&psig=AOvVaw2g-c5l0_2s9-i8_a5n2o8q&ust=1632296495340000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCNi-4-z_y_ICFQAAAAAdAAAAABAD',
+  },
+];
 
-    if (!id) {
-      return res.status(400).json({ error: "Property ID is required" });
+export default function handler(request: NextApiRequest, response: NextApiResponse) {
+  const {
+    query: { id },
+  } = request;
+
+  if (request.method === "GET") {
+    const property = properties.find((p) => p.id === id);
+
+    if (property) {
+      response.status(200).json(property);
+    } else {
+      response.status(404).json({ message: 'Property not found' });
     }
-
-    const externalApiUrl = `${process.env.EXTERNAL_API_URL}?listingId=${id}`;
-
-    const response = await fetch(externalApiUrl, {
-      headers: {
-        "x-rapidapi-key": process.env.EXTERNAL_API_KEY!,
-        "x-rapidapi-host": process.env.EXTERNAL_API_HOST!,
-        "Accept": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      const text = await response.text();
-      console.error("Upstream error:", response.status, text);
-      return res.status(response.status).json({ error: "Failed to fetch property details", details: text });
-    }
-
-    const data = await response.json();
-    return res.status(200).json(data);
-  } catch (err) {
-    console.error("API route crashed:", err);
-    let errorMsg = "Unexpected error";
-    if (err instanceof Error) {
-      errorMsg = err.message;
-    }
-    return res.status(500).json({ error: errorMsg });
+  } else {
+    response.setHeader('Allow', ['GET']);
+    response.status(405).end(`Method ${request.method} Not Allowed in here`);
   }
 }
-

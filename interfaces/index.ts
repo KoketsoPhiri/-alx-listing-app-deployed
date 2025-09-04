@@ -7,9 +7,10 @@ export interface CardProps {
 }
 
 export interface ButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   children: React.ReactNode;
-  className : string;
+  className?: string;
+  title?: string;
 }
 
 

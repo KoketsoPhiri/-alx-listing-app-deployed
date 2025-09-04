@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import PropertyDetail from "@/components/property/PropertyDetail";
 import { Property } from "@/interfaces";
+
 
 export default function PropertyDetailPage() {
   const router = useRouter();
@@ -12,27 +12,36 @@ export default function PropertyDetailPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const fetchProperty = useCallback(async () => {
     if (!id) return;
+    setLoading(true);
+    setError(null);
 
-    const fetchProperty = async () => {
-      try {
-        // Fetch property details using the dynamic API route
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/properties/${id}`);
-        setProperty(response.data);
-      } catch (err) {
-        console.error("Error fetching property details:", err);
-        setError("Failed to load property details.");
-      } finally {
-        setLoading(false);
+    try {
+      const response = await fetch(`/api/properties/${id}`, {
+        method: "GET",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to load property details.");
       }
-    };
 
-    fetchProperty();
+      const data = await response.json();
+      setProperty(data);
+    } catch (err) {
+      setError("Failed to load property details.");
+      console.error("Error fetching property details:", err);
+    } finally {
+      setLoading(false);
+    }
   }, [id]);
 
+  useEffect(() => {
+    fetchProperty();
+  }, [fetchProperty]);
+
   if (loading) {
-    return <p className="text-center text-gray-500">Loading...</p>;
+    return <p>Loading...</p>;
   }
 
   if (error) {
